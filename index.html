@@ -1,51 +1,66 @@
 <!DOCTYPE html>
-<html lamg = "ru">
+<html lang="ru">
  <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>Семестровая работа</title>
+ <link rel="stylesheet" href="style/styles.css">
  </head>
  <body>
- <div id="header">Хэдер</div>
- <div id="menu">
- <ul>
- <li><a href="index.html">Главная</a></li>
- <li><a href="pages/news.html">Новости</a></li>
- <li><a href="pages/practices.html">Практики</a></li>
- <li><a href="pages/goods.html">Товары</a></li>
- <li><a href="pages/contacts.html">Контакты</a></li>
+ <div class="page-container">
+ <div class="header">Хэдер</div>
+ <div class="nav">
+ <ul class="nav-list">
+ <li class="nav-item"><a class="nav-link"
+href="index.html">Главная</a></li>
+ <li class="nav-item"><a class="nav-link"
+href="pages/news.html">Новости</a></li>
+ <li class="nav-item"><a class="nav-link"
+href="pages/practices.html">Практики</a></li>
+ <li class="nav-item"><a class="nav-link"
+href="pages/goods.html">Товары</a></li>
+ <li class="nav-item"><a class="nav-link"
+href="pages/contacts.html">Контакты</a></li>
  </ul>
  </div>
- <div id="content">
- <p>Информация об авторе</p>
- <img src="images/photo.png" alt="Фото автора" width="200"
-height="250">
- <p>говорухина Дарья Дмитриевна</p>
- <p>ЭФБО-17-24</p>
- <p>Обо мне: Я родился в Москве в 70-м на краю города. Глупость рано
-ударила в голову. В четыре активно ругался.
-Потом школа, форма, драки, клей. Так я становился сильней. Воровал деньги в
-раздевалке.</p>
- <div>Навык 1</div>
- <div>Навык 2</div>
- <div>Навык 3</div>
- <div>Навык 4</div>
- <div>
- Мой опыт работы:
- <div>
- Опыт 1<br>
- Работал фантазёром. Сочинял и праздновал.
+ <div class="content">
+ <div class="profile-header">
+ <h1 class="profile-title">Информация об авторе</h1>
+ <img class="profile-photo" src="images/photo.png" alt="Фото
+автора">
+ <h2 class="profile-name">Говорухина Дарья Дмитриевна</h2>
+ <p class="profile-group">ЭФБО-17-24</p>
  </div>
- <div>
-    Опыт 2<br>
-    Работал воровством. Воровал и продавал.
-    </div>
-    <div>
-    Опыт 3<br>
-    Работал рэпером. Читал и пел.
-    </div>
-    </div>
-    </div>
-    <div id="footer">Футер</div>
-    </body>
-   </html>   
+
+ <div class="about-me">
+ <p>Обо мне: Я родилась в Москве в 2004 году на краю города, где граница между мирами особенно тонка. С детства чувствовала присутствие потусторонних сущностей. В четыре года начала видеть духов и общаться с ними. Потом школа, изучение древних текстов, практики медитации, заклинания. Так я становилась сильнее в магических искусствах. Собирала артефакты и изучала тайные знания.</p>
+ </div>
+
+ <div class="skills-container">
+ <div class="skill-tag">изгнание</div>
+ <div class="skill-tag">обряды</div>
+ <div class="skill-tag">убийства</div>
+ <div class="skill-tag">пирог</div>
+ <div class="skill-tag">импала</div>
+ </div>
+
+ <div class="experience-section">
+ <h2 class="section-title">Мой опыт работы</h2>
+ <div class="experience-card">
+ <h3 class="experience-title">Исследователь паранормальных явлений</h3>
+ <p class="experience-desc">Работала в Центре изучения аномальных явлений. Исследовала места с повышенной духовной активностью, проводила ритуалы очищения и документировала встречи с потусторонними сущностями.</p>
+ </div>
+ <div class="experience-card">
+ <h3 class="experience-title">Маг-консультант</h3>
+ <p class="experience-desc">Предоставляла магические консультации и проводила обряды защиты. Помогала людям избавиться от негативной энергии и духовных привязанностей. Специализировалась на работе с кристаллами и древними артефактами.</p>
+ </div>
+ <div class="experience-card">
+ <h3 class="experience-title">Экзорцист</h3>
+ <p class="experience-desc">Проводила ритуалы изгнания злых духов и очищения помещений. Работала с различными типами сущностей - от призраков до демонов. Изучала древние заклинания и методы защиты от темных сил.</p>
+ </div>
+ </div>
+ </div>
+ <div class="footer">Футер</div>
+ </div>
+ </body>
+</html>   
