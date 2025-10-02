@@ -3,42 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Товары</title>
+    <title>Магический Арсенал</title>
     <link rel="stylesheet" href="../style/styles.css">
 </head>
 <body>
-    <div id="header">Хэдер</div>
-    
-    <div id="menu">
-        <ul>
-            <li><a href="../index.html">Главная</a></li>
-            <li><a href="news.html">Новости</a></li>
-            <li><a href="practices.html">Практики</a></li>
-            <li><a href="goods.html">Товары</a></li>
-            <li><a href="contacts.html">Контакты</a></li>
-        </ul>
-    </div>
-    
-    <div id="content">
-        <div class="goods-item">
-            <img src="../images/goods1.jpg" alt="Товар 1" width="200" height="200">
-            <h3>Товар 1</h3>
-            <p>6 000 000р</p>
+    <div class="page-container">
+        <div class="header">🔮 Магический Арсенал "Кристалл и Тьма" 🔮</div>
+        
+        <div class="nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a class="nav-link" href="../index.html">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="news.html">Новости</a></li>
+                <li class="nav-item"><a class="nav-link" href="practices.html">Практики</a></li>
+                <li class="nav-item"><a class="nav-link" href="goods.html">Товары</a></li>
+                <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+            </ul>
         </div>
         
-        <div class="goods-item">
-            <img src="../images/goods2.jpg" alt="Товар 2" width="200" height="200">
-            <h3>Товар 2</h3>
-            <p>100 000 000 000р</p>
+        <div class="content">
+            <div class="shop-section">
+                <h1 class="section-title">Артефакты и Магические Компоненты</h1>
+                <p class="shop-description">Каждый предмет в нашем арсенале прошел тщательную проверку на подлинность и энергетическую чистоту. Все артефакты заряжены в соответствии с лунными циклами для максимальной эффективности.</p>
+                
+                <div class="goods-grid">
+                    <div class="artifact-card legendary">
+                        <div class="artifact-image">
+                            <img src="../images/goods1.jpg" alt="Кристалл Древней Силы" width="250" height="250">
+                            <div class="artifact-glow"></div>
+                        </div>
+                        <div class="artifact-info">
+                            <h3 class="artifact-name">Кристалл Древней Силы</h3>
+                            <p class="artifact-description">Редчайший кристалл, добытый в глубинах Забытых Пещер. Усиливает магические способности в 10 раз. Содержит дух древнего дракона.</p>
+                            <div class="artifact-stats">
+                                <span class="stat">⚡ +1000 к мане</span>
+                                <span class="stat">🔥 +500 к силе заклинаний</span>
+                                <span class="stat">🛡️ Защита от темной магии</span>
+                            </div>
+                            <div class="artifact-price">6 000 000₽</div>
+                            <button class="buy-button">Приобрести</button>
+                        </div>
+                    </div>
+                    
+                    <div class="artifact-card mythic">
+                        <div class="artifact-image">
+                            <img src="../images/goods2.jpg" alt="Амулет Вечной Жизни" width="250" height="250">
+                            <div class="artifact-glow"></div>
+                        </div>
+                        <div class="artifact-info">
+                            <h3 class="artifact-name">Амулет Вечной Жизни</h3>
+                            <p class="artifact-description">Легендарный артефакт, созданный самим богом времени. Дарует бессмертие и способность путешествовать между измерениями. Один из трех существующих в мире.</p>
+                            <div class="artifact-stats">
+                                <span class="stat">♾️ Бессмертие</span>
+                                <span class="stat">🌌 Путешествия между мирами</span>
+                                <span class="stat">⏰ Контроль времени</span>
+                            </div>
+                            <div class="artifact-price">100 000 000 000₽</div>
+                            <button class="buy-button">Приобрести</button>
+                        </div>
+                    </div>
+                    
+                    <div class="artifact-card epic">
+                        <div class="artifact-image">
+                            <img src="../images/goods3.jpg" alt="Посох Лунного Света" width="250" height="250">
+                            <div class="artifact-glow"></div>
+                        </div>
+                        <div class="artifact-info">
+                            <h3 class="artifact-name">Посох Лунного Света</h3>
+                            <p class="artifact-description">Мощный посох, вырезанный из лунного дерева. Усиливает лунную магию и позволяет призывать духов предков. Идеален для ритуалов очищения.</p>
+                            <div class="artifact-stats">
+                                <span class="stat">🌙 +300 к лунной магии</span>
+                                <span class="stat">👻 Призыв духов</span>
+                                <span class="stat">✨ Очищение от проклятий</span>
+                            </div>
+                            <div class="artifact-price">1 000 000₽</div>
+                            <button class="buy-button">Приобрести</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="shop-warning">
+                    <h3>⚠️ ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ</h3>
+                    <p>Все артефакты требуют соответствующего уровня магических способностей. Неправильное использование может привести к непредсказуемым последствиям. Перед покупкой проконсультируйтесь с нашими специалистами.</p>
+                </div>
+            </div>
         </div>
         
-        <div class="goods-item">
-            <img src="../images/goods3.jpg" alt="Товар 3" width="200" height="200">
-            <h3>Товар 3</h3>
-            <p>1 000 000р</p>
-        </div>
+        <div class="footer">© 2024 Магический Арсенал "Кристалл и Тьма". Все права защищены древними заклинаниями.</div>
     </div>
-    
-    <div id="footer">Футер</div>
 </body>
 </html>

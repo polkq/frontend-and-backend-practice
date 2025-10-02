@@ -170,3 +170,446 @@ body {
  padding: 30px; /* Внутренние отступы */
  margin-top: 50px; /* Отступ сверху */
 }
+
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ НОВОСТЕЙ ===== */
+.news-section {
+ margin: 20px 0;
+}
+
+.news-article {
+ background: white;
+ margin: 30px 0;
+ border-radius: 15px;
+ box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+ overflow: hidden;
+ transition: transform 0.3s ease;
+}
+
+.news-article:hover {
+ transform: translateY(-5px);
+}
+
+.news-article.critical {
+ border-left: 6px solid #e74c3c;
+}
+
+.news-article.important {
+ border-left: 6px solid #f39c12;
+}
+
+.news-article.warning {
+ border-left: 6px solid #9b59b6;
+}
+
+.news-header {
+ background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+ padding: 25px;
+ border-bottom: 1px solid #dee2e6;
+}
+
+.news-title {
+ font-size: 22px;
+ color: #2c3e50;
+ margin: 0 0 15px 0;
+ font-weight: 600;
+}
+
+.news-meta {
+ display: flex;
+ gap: 20px;
+ flex-wrap: wrap;
+ align-items: center;
+}
+
+.news-date, .news-author {
+ color: #6c757d;
+ font-size: 14px;
+}
+
+.news-category {
+ background: #e74c3c;
+ color: white;
+ padding: 4px 12px;
+ border-radius: 20px;
+ font-size: 12px;
+ font-weight: bold;
+}
+
+.news-article.important .news-category {
+ background: #f39c12;
+}
+
+.news-article.warning .news-category {
+ background: #9b59b6;
+}
+
+.news-content {
+ padding: 25px;
+ line-height: 1.8;
+}
+
+.news-content p {
+ margin-bottom: 15px;
+ color: #495057;
+}
+
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ ТОВАРОВ ===== */
+.shop-section {
+ margin: 20px 0;
+}
+
+.shop-description {
+ text-align: center;
+ color: #6c757d;
+ font-size: 16px;
+ margin-bottom: 40px;
+ line-height: 1.6;
+}
+
+.goods-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+ gap: 30px;
+ margin: 40px 0;
+}
+
+.artifact-card {
+ background: white;
+ border-radius: 20px;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+ overflow: hidden;
+ transition: all 0.3s ease;
+ position: relative;
+}
+
+.artifact-card:hover {
+ transform: translateY(-10px);
+ box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.artifact-card.legendary {
+ border: 3px solid #ffd700;
+}
+
+.artifact-card.mythic {
+ border: 3px solid #ff6b6b;
+}
+
+.artifact-card.epic {
+ border: 3px solid #9b59b6;
+}
+
+.artifact-image {
+ position: relative;
+ overflow: hidden;
+}
+
+.artifact-image img {
+ width: 100%;
+ height: 250px;
+ object-fit: cover;
+ transition: transform 0.3s ease;
+}
+
+.artifact-card:hover .artifact-image img {
+ transform: scale(1.05);
+}
+
+.artifact-glow {
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+ transform: translateX(-100%);
+ transition: transform 0.6s ease;
+}
+
+.artifact-card:hover .artifact-glow {
+ transform: translateX(100%);
+}
+
+.artifact-info {
+ padding: 25px;
+}
+
+.artifact-name {
+ font-size: 20px;
+ color: #2c3e50;
+ margin: 0 0 15px 0;
+ font-weight: 600;
+}
+
+.artifact-description {
+ color: #6c757d;
+ line-height: 1.6;
+ margin-bottom: 20px;
+}
+
+.artifact-stats {
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ margin-bottom: 20px;
+}
+
+.stat {
+ background: #f8f9fa;
+ padding: 8px 12px;
+ border-radius: 20px;
+ font-size: 14px;
+ color: #495057;
+ border-left: 3px solid #667eea;
+}
+
+.artifact-price {
+ font-size: 24px;
+ font-weight: bold;
+ color: #e74c3c;
+ margin-bottom: 20px;
+}
+
+.buy-button {
+ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ color: white;
+ border: none;
+ padding: 12px 30px;
+ border-radius: 25px;
+ font-size: 16px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ width: 100%;
+}
+
+.buy-button:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.shop-warning {
+ background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+ border: 2px solid #f39c12;
+ border-radius: 15px;
+ padding: 20px;
+ margin: 40px 0;
+}
+
+.shop-warning h3 {
+ color: #856404;
+ margin: 0 0 10px 0;
+}
+
+.shop-warning p {
+ color: #856404;
+ margin: 0;
+ line-height: 1.6;
+}
+
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ КОНТАКТОВ ===== */
+.contact-section {
+ margin: 20px 0;
+}
+
+.contact-description {
+ text-align: center;
+ color: #6c757d;
+ font-size: 16px;
+ margin-bottom: 40px;
+ line-height: 1.6;
+}
+
+.contact-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+ gap: 30px;
+ margin: 40px 0;
+}
+
+.contact-card {
+ background: white;
+ border-radius: 20px;
+ padding: 30px;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+ text-align: center;
+ transition: all 0.3s ease;
+ position: relative;
+ overflow: hidden;
+}
+
+.contact-card:hover {
+ transform: translateY(-5px);
+ box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.contact-card.emergency {
+ border-top: 5px solid #e74c3c;
+}
+
+.contact-card.consultation {
+ border-top: 5px solid #9b59b6;
+}
+
+.contact-card.office {
+ border-top: 5px solid #3498db;
+}
+
+.contact-icon {
+ font-size: 48px;
+ margin-bottom: 20px;
+}
+
+.contact-title {
+ font-size: 20px;
+ color: #2c3e50;
+ margin: 0 0 15px 0;
+ font-weight: 600;
+}
+
+.contact-card .contact-description {
+ color: #6c757d;
+ font-size: 14px;
+ margin-bottom: 20px;
+}
+
+.contact-info {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin: 10px 0;
+ padding: 10px;
+ background: #f8f9fa;
+ border-radius: 8px;
+}
+
+.contact-label {
+ font-weight: 600;
+ color: #495057;
+}
+
+.contact-value {
+ color: #2c3e50;
+ font-weight: 500;
+}
+
+.contact-button {
+ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ color: white;
+ border: none;
+ padding: 12px 25px;
+ border-radius: 25px;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ margin-top: 20px;
+}
+
+.contact-button:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.emergency-btn {
+ background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.consultation-btn {
+ background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+}
+
+.office-btn {
+ background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+}
+
+.contact-warning {
+ background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+ border: 2px solid #e74c3c;
+ border-radius: 15px;
+ padding: 20px;
+ margin: 40px 0;
+}
+
+.contact-warning h3 {
+ color: #721c24;
+ margin: 0 0 10px 0;
+}
+
+.contact-warning p {
+ color: #721c24;
+ margin: 0;
+ line-height: 1.6;
+}
+
+.contact-form {
+ background: white;
+ border-radius: 20px;
+ padding: 30px;
+ box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+ margin: 40px 0;
+}
+
+.contact-form h3 {
+ color: #2c3e50;
+ margin: 0 0 25px 0;
+ font-size: 24px;
+ text-align: center;
+}
+
+.supernatural-form {
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
+}
+
+.form-group {
+ display: flex;
+ flex-direction: column;
+}
+
+.form-group label {
+ color: #2c3e50;
+ font-weight: 600;
+ margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+ padding: 12px 15px;
+ border: 2px solid #e9ecef;
+ border-radius: 10px;
+ font-size: 16px;
+ transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+ outline: none;
+ border-color: #667eea;
+}
+
+.form-group textarea {
+ min-height: 120px;
+ resize: vertical;
+}
+
+.submit-button {
+ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ color: white;
+ border: none;
+ padding: 15px 30px;
+ border-radius: 25px;
+ font-size: 18px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ margin-top: 20px;
+}
+
+.submit-button:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
