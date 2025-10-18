@@ -4,402 +4,404 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Магический Арсенал</title>
-    <link rel="stylesheet" href="../style/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        /* Компонент карточки товара с состояниями */
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+        
         .product-card {
-            background: var(--color-bg-primary);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-md);
-            overflow: hidden;
-            transition: all var(--transition-normal);
-            position: relative;
+            transition: all 0.3s ease;
             border: 2px solid transparent;
         }
-
-        /* Базовое состояние */
-        .product-card {
-            transform: translateY(0);
-        }
-
-        /* Состояние при наведении */
+        
         .product-card:hover {
             transform: translateY(-10px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--color-primary);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
-
-        /* Выбранное состояние */
+        
         .product-card--selected {
-            border-color: var(--color-success);
-            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+            border-color: #28a745 !important;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2) !important;
         }
-
+        
         .product-card--selected::before {
             content: '✓';
             position: absolute;
-            top: var(--space-md);
-            right: var(--space-md);
-            background: var(--color-success);
-            color: var(--color-text-inverse);
+            top: 15px;
+            right: 15px;
+            background: #28a745;
+            color: white;
             width: 30px;
             height: 30px;
-            border-radius: var(--radius-full);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: var(--font-weight-bold);
+            font-weight: bold;
             z-index: 1;
         }
-
-        /* Состояние со скидкой */
-        .product-card--discount {
-            position: relative;
-        }
-
+        
         .product-card--discount::after {
             content: 'Скидка 20%';
             position: absolute;
-            top: var(--space-md);
-            left: var(--space-md);
-            background: var(--color-danger);
-            color: var(--color-text-inverse);
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-md);
-            font-size: var(--font-size-sm);
-            font-weight: var(--font-weight-bold);
+            top: 15px;
+            left: 15px;
+            background: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
             z-index: 1;
         }
-
-        /* Состояние недоступности */
+        
         .product-card--unavailable {
             opacity: 0.6;
             cursor: not-allowed;
         }
-
+        
         .product-card--unavailable:hover {
-            transform: none;
-            box-shadow: var(--shadow-md);
+            transform: none !important;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075) !important;
         }
-
-        .product-card--unavailable .product-card__image {
-            filter: grayscale(100%);
-        }
-
-        .product-card--unavailable .product-card__button {
-            background: var(--color-gray);
-            cursor: not-allowed;
-        }
-
-        /* Элементы карточки */
-        .product-card__image {
-            position: relative;
-            overflow: hidden;
-            height: 250px;
-        }
-
-        .product-card__image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition-normal);
-        }
-
-        .product-card:hover .product-card__image img {
-            transform: scale(1.05);
-        }
-
-
-        .product-card__content {
-            padding: var(--space-xl);
-        }
-
-        .product-card__title {
-            font-size: var(--font-size-xl);
-            color: var(--color-text-primary);
-            margin: 0 0 var(--space-md) 0;
-            font-weight: var(--font-weight-semibold);
-        }
-
-        .product-card__description {
-            color: var(--color-text-secondary);
-            line-height: var(--line-height-normal);
-            margin-bottom: var(--space-lg);
-        }
-
-        .product-card__stats {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-sm);
-            margin-bottom: var(--space-lg);
-        }
-
-        .product-card__stat {
-            background: var(--color-bg-secondary);
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-full);
-            font-size: var(--font-size-sm);
-            color: var(--color-text-primary);
-            border-left: 3px solid var(--color-primary);
-        }
-
-        .product-card__price {
-            font-size: var(--font-size-2xl);
-            font-weight: var(--font-weight-bold);
-            color: var(--color-danger);
-            margin-bottom: var(--space-lg);
-        }
-
-        .product-card__price--old {
-            text-decoration: line-through;
-            color: var(--color-text-muted);
-            font-size: var(--font-size-lg);
-            margin-right: var(--space-sm);
-        }
-
-        .product-card__button {
-            background: var(--color-primary);
-            color: var(--color-text-inverse);
-            border: none;
-            padding: var(--space-md) var(--space-lg);
-            border-radius: var(--radius-full);
-            font-size: var(--font-size-base);
-            font-weight: var(--font-weight-semibold);
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            width: 100%;
-        }
-
-        .product-card__button:hover {
-            background: var(--color-primary-hover);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .product-card__button:active {
-            transform: translateY(0);
-        }
-
-        /* Модификаторы редкости */
+        
         .product-card--legendary {
-            border-color: #ffd700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            border-color: #ffd700 !important;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3) !important;
         }
-
+        
         .product-card--mythic {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+            border-color: #ff6b6b !important;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.3) !important;
         }
-
+        
         .product-card--epic {
-            border-color: #9b59b6;
-            box-shadow: 0 0 20px rgba(155, 89, 182, 0.3);
+            border-color: #9b59b6 !important;
+            box-shadow: 0 0 20px rgba(155, 89, 182, 0.3) !important;
         }
-
-        /* Сетка товаров */
-        .products__grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: var(--space-xl);
-            margin: var(--space-xxl) 0;
+        
+        .bg-gradient-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-
-        /* Фильтры */
-        .filters {
-            background: var(--color-bg-primary);
-            padding: var(--space-xl);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            margin-bottom: var(--space-xl);
+        
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
-
-        .filters__title {
-            color: var(--color-text-primary);
-            margin-bottom: var(--space-lg);
-            font-size: var(--font-size-xl);
+        
+        .filter-btn {
+            transition: all 0.3s ease;
         }
-
-        .filters__list {
-            display: flex;
-            gap: var(--space-md);
-            flex-wrap: wrap;
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
         }
-
-        .filter__button {
-            background: var(--color-bg-secondary);
-            color: var(--color-text-primary);
-            border: 2px solid var(--color-light-gray);
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-full);
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            font-weight: var(--font-weight-medium);
-        }
-
-        .filter__button:hover {
-            background: var(--color-primary);
-            color: var(--color-text-inverse);
-            border-color: var(--color-primary);
-        }
-
-        .filter__button--active {
-            background: var(--color-primary);
-            color: var(--color-text-inverse);
-            border-color: var(--color-primary);
+        
+        .filter-btn.active {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
     </style>
 </head>
-<body>
-    <div class="page">
-        <header class="header">
-            <h1 class="header__title">🔮 Магический Арсенал "Кристалл и Тьма" 🔮</h1>
-            <button class="header__theme-switcher" onclick="toggleTheme()" title="Переключить тему">
-                🌙
-            </button>
-        </header>
-        
-        <nav class="nav">
-            <ul class="nav__list">
-                <li class="nav__item">
-                    <a class="nav__link" href="../index.html">Главная</a>
-                </li>
-                <li class="nav__item">
-                    <a class="nav__link" href="news.html">Новости</a>
-                </li>
-                <li class="nav__item">
-                    <a class="nav__link" href="practices.html">Практики</a>
-                </li>
-                <li class="nav__item nav__item--active">
-                    <a class="nav__link" href="goods.html">Товары</a>
-                </li>
-                <li class="nav__item">
-                    <a class="nav__link" href="contacts.html">Контакты</a>
-                </li>
-            </ul>
-        </nav>
-        
-        <main class="main">
-            <section class="about">
-                <h1 class="about__title">Артефакты и Магические Компоненты</h1>
-                <p class="about__text">
-                    Каждый предмет в нашем арсенале прошел тщательную проверку на подлинность и энергетическую чистоту. 
-                    Все артефакты заряжены в соответствии с лунными циклами для максимальной эффективности.
-                </p>
-            </section>
+<body class="bg-light">
+    <!-- Переключатель темы -->
+    <div class="theme-switcher">
+        <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" title="Переключить тему">
+            <i class="bi bi-moon" id="theme-icon"></i>
+        </button>
+    </div>
 
-            <!-- Фильтры -->
-            <div class="filters">
-                <h3 class="filters__title">Фильтры по редкости:</h3>
-                <div class="filters__list">
-                    <button class="filter__button filter__button--active" data-filter="all">Все</button>
-                    <button class="filter__button" data-filter="legendary">Легендарные</button>
-                    <button class="filter__button" data-filter="mythic">Мифические</button>
-                    <button class="filter__button" data-filter="epic">Эпические</button>
+    <div class="container-fluid p-0">
+        <!-- Header -->
+        <header class="bg-gradient-custom text-white py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h1 class="h3 mb-1 text-shadow">🔮 Магический Арсенал "Кристалл и Тьма" 🔮</h1>
+                        <p class="mb-0 opacity-75">Аутентичные артефакты и магические компоненты</p>
+                    </div>
+                    <div class="col-auto">
+                        <span class="badge bg-light text-primary fs-6">24/7</span>
+                    </div>
                 </div>
             </div>
-            
-            <div class="products__grid">
-                <article class="product-card product-card--legendary" data-rarity="legendary">
-                    <div class="product-card__image">
-                        <img src="../images/goods1.jpg" alt="Импала" width="250" height="250">
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Импала</h3>
-                        <p class="product-card__description">
-                            Импала 1967 года из сериала "Сверхъестественное" — это культовый автомобиль, который стал символом шоу и мобильной базой для братьев Винчестеров. 
-                            С гладким дизайном и агрессивным видом, он хранит охотничьи принадлежности и личные вещи, олицетворяя семью и их связь с прошлым.
-                        </p>
-                        <div class="product-card__stats">
-                            <span class="product-card__stat">⚡ +1000 к мане</span>
-                            <span class="product-card__stat">🔥 +500 к силе заклинаний</span>
-                            <span class="product-card__stat">🛡️ Защита от темной магии</span>
-                        </div>
-                        <div class="product-card__price">
-                            <span class="product-card__price--old">7 500 000₽</span>
-                            6 000 000₽
-                        </div>
-                        <button class="product-card__button" onclick="toggleSelection(this)">Приобрести</button>
-                    </div>
-                </article>
-                
-                <article class="product-card product-card--mythic product-card--discount" data-rarity="mythic">
-                    <div class="product-card__image">
-                        <img src="../images/goods2.jpg" alt="Бункер Хранителей" width="250" height="250">
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Бункер Хранителей</h3>
-                        <p class="product-card__description">
-                            Бункер Хранителей, известный как "Бункер", является подземным убежищем в сериале "Сверхъестественное", 
-                            построенным древним орденом Хранителей для защиты знаний о сверхъестественном.
-                        </p>
-                        <div class="product-card__stats">
-                            <span class="product-card__stat">♾️ Бессмертие</span>
-                            <span class="product-card__stat">🌌 Путешествия между мирами</span>
-                            <span class="product-card__stat">⏰ Контроль времени</span>
-                        </div>
-                        <div class="product-card__price">
-                            <span class="product-card__price--old">125 000 000 000₽</span>
-                            100 000 000 000₽
-                        </div>
-                        <button class="product-card__button" onclick="toggleSelection(this)">Приобрести</button>
-                    </div>
-                </article>
-                
-                <article class="product-card product-card--epic product-card--unavailable" data-rarity="epic">
-                    <div class="product-card__image">
-                        <img src="../images/goods3.jpg" alt="Дневник Джона Винчестера" width="250" height="250">
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">Дневник Джона Винчестера</h3>
-                        <p class="product-card__description">
-                            Это важный артефакт, содержащий записи о его охоте на сверхъестественные существа, 
-                            а также личные размышления о семье и потерях.
-                        </p>
-                        <div class="product-card__stats">
-                            <span class="product-card__stat">🌙 +300 к лунной магии</span>
-                            <span class="product-card__stat">👻 Призыв духов</span>
-                            <span class="product-card__stat">✨ Очищение от проклятий</span>
-                        </div>
-                        <div class="product-card__price">1 000 000₽</div>
-                        <button class="product-card__button" disabled>Нет в наличии</button>
-                    </div>
-                </article>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">
+                                <i class="bi bi-house me-1"></i>Главная
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="news.html">
+                                <i class="bi bi-newspaper me-1"></i>Новости
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="practices.html">
+                                <i class="bi bi-magic me-1"></i>Практики
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="goods.html">
+                                <i class="bi bi-gem me-1"></i>Товары
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contacts.html">
+                                <i class="bi bi-telephone me-1"></i>Контакты
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container my-4">
+            <!-- About Section -->
+            <section class="mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="card-title h4 text-primary">
+                            <i class="bi bi-gem me-2"></i>Артефакты и Магические Компоненты
+                        </h1>
+                        <p class="card-text">
+                            Каждый предмет в нашем арсенале прошел тщательную проверку на подлинность и энергетическую чистоту. 
+                            Все артефакты заряжены в соответствии с лунными циклами для максимальной эффективности.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filters -->
+            <section class="mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title h5 mb-3">
+                            <i class="bi bi-funnel me-2"></i>Фильтры по редкости
+                        </h3>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button class="btn btn-primary filter-btn active" data-filter="all">
+                                <i class="bi bi-grid me-1"></i>Все
+                            </button>
+                            <button class="btn btn-outline-warning filter-btn" data-filter="legendary">
+                                <i class="bi bi-star-fill me-1"></i>Легендарные
+                            </button>
+                            <button class="btn btn-outline-danger filter-btn" data-filter="mythic">
+                                <i class="bi bi-lightning-fill me-1"></i>Мифические
+                            </button>
+                            <button class="btn btn-outline-info filter-btn" data-filter="epic">
+                                <i class="bi bi-diamond-fill me-1"></i>Эпические
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
             
-            <aside class="about">
-                <h3 class="about__title">⚠️ ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ</h3>
-                <p class="about__text">
-                    Все артефакты требуют соответствующего уровня магических способностей. 
-                    Неправильное использование может привести к непредсказуемым последствиям. 
-                    Перед покупкой проконсультируйтесь с нашими специалистами.
-                </p>
-            </aside>
+            <!-- Products Grid -->
+            <section class="mb-5">
+                <div class="row g-4" id="products-grid">
+                    <!-- Product 1: Импала -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card product-card product-card--legendary h-100" data-rarity="legendary">
+                            <div class="position-relative">
+                                <img src="../images/goods1.jpg" class="card-img-top" alt="Импала" style="height: 250px; object-fit: cover;">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-primary">
+                                    <i class="bi bi-car-front me-2"></i>Импала
+                                </h5>
+                                <p class="card-text flex-grow-1">
+                                    Импала 1967 года из сериала "Сверхъестественное" — это культовый автомобиль, который стал символом шоу и мобильной базой для братьев Винчестеров.
+                                </p>
+                                <div class="mb-3">
+                                    <div class="d-flex flex-wrap gap-1">
+                                        <span class="badge bg-primary">⚡ +1000 к мане</span>
+                                        <span class="badge bg-warning">🔥 +500 к силе заклинаний</span>
+                                        <span class="badge bg-info">🛡️ Защита от темной магии</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <span class="text-decoration-line-through text-muted me-2">7 500 000₽</span>
+                                        <span class="h5 text-danger mb-0">6 000 000₽</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100" onclick="toggleSelection(this)">
+                                    <i class="bi bi-cart-plus me-1"></i>Приобрести
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2: Бункер Хранителей -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card product-card product-card--mythic product-card--discount h-100" data-rarity="mythic">
+                            <div class="position-relative">
+                                <img src="../images/goods2.jpg" class="card-img-top" alt="Бункер Хранителей" style="height: 250px; object-fit: cover;">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-danger">
+                                    <i class="bi bi-building me-2"></i>Бункер Хранителей
+                                </h5>
+                                <p class="card-text flex-grow-1">
+                                    Бункер Хранителей, известный как "Бункер", является подземным убежищем в сериале "Сверхъестественное", 
+                                    построенным древним орденом Хранителей для защиты знаний о сверхъестественном.
+                                </p>
+                                <div class="mb-3">
+                                    <div class="d-flex flex-wrap gap-1">
+                                        <span class="badge bg-success">♾️ Бессмертие</span>
+                                        <span class="badge bg-info">🌌 Путешествия между мирами</span>
+                                        <span class="badge bg-warning">⏰ Контроль времени</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <span class="text-decoration-line-through text-muted me-2">125 000 000 000₽</span>
+                                        <span class="h5 text-danger mb-0">100 000 000 000₽</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100" onclick="toggleSelection(this)">
+                                    <i class="bi bi-cart-plus me-1"></i>Приобрести
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3: Дневник Джона Винчестера -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card product-card product-card--epic product-card--unavailable h-100" data-rarity="epic">
+                            <div class="position-relative">
+                                <img src="../images/goods3.jpg" class="card-img-top" alt="Дневник Джона Винчестера" style="height: 250px; object-fit: cover; filter: grayscale(100%);">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-info">
+                                    <i class="bi bi-journal-text me-2"></i>Дневник Джона Винчестера
+                                </h5>
+                                <p class="card-text flex-grow-1">
+                                    Это важный артефакт, содержащий записи о его охоте на сверхъестественные существа, 
+                                    а также личные размышления о семье и потерях.
+                                </p>
+                                <div class="mb-3">
+                                    <div class="d-flex flex-wrap gap-1">
+                                        <span class="badge bg-secondary">🌙 +300 к лунной магии</span>
+                                        <span class="badge bg-primary">👻 Призыв духов</span>
+                                        <span class="badge bg-success">✨ Очищение от проклятий</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="h5 text-muted mb-0">1 000 000₽</span>
+                                </div>
+                                <button class="btn btn-secondary w-100" disabled>
+                                    <i class="bi bi-x-circle me-1"></i>Нет в наличии
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Warning Section -->
+            <section class="mb-5">
+                <div class="alert alert-warning" role="alert">
+                    <h4 class="alert-heading">
+                        <i class="bi bi-exclamation-triangle me-2"></i>ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ
+                    </h4>
+                    <p class="mb-0">
+                        Все артефакты требуют соответствующего уровня магических способностей. 
+                        Неправильное использование может привести к непредсказуемым последствиям. 
+                        Перед покупкой проконсультируйтесь с нашими специалистами.
+                    </p>
+                </div>
+            </section>
         </main>
-        
-        <footer class="footer">
-            <p class="footer__text">© 2024 Магический Арсенал "Кристалл и Тьма". Все права защищены древними заклинаниями.</p>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white py-4 mt-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="mb-0">&copy; 2024 Магический Арсенал "Кристалл и Тьма". Все права защищены древними заклинаниями.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <a href="contacts.html" class="text-white text-decoration-none me-3">
+                            <i class="bi bi-telephone me-1"></i>Контакты
+                        </a>
+                        <a href="#" class="text-white text-decoration-none">
+                            <i class="bi bi-shield-check me-1"></i>Гарантии
+                        </a>
+                    </div>
+                </div>
+            </div>
         </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Переключатель темы
         function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
             
-            const themeButton = document.querySelector('.header__theme-switcher');
-            themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            if (body.classList.contains('bg-light')) {
+                // Переключаем на темную тему
+                body.classList.remove('bg-light');
+                body.classList.add('bg-dark');
+                body.style.color = 'white';
+                
+                // Обновляем карточки
+                document.querySelectorAll('.card').forEach(card => {
+                    card.classList.remove('bg-white');
+                    card.classList.add('bg-dark');
+                    card.style.borderColor = '#495057';
+                });
+                
+                // Обновляем иконку
+                themeIcon.className = 'bi bi-sun';
+                
+                // Сохраняем выбор
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Переключаем на светлую тему
+                body.classList.remove('bg-dark');
+                body.classList.add('bg-light');
+                body.style.color = '';
+                
+                // Обновляем карточки
+                document.querySelectorAll('.card').forEach(card => {
+                    card.classList.remove('bg-dark');
+                    card.classList.add('bg-white');
+                    card.style.borderColor = '';
+                });
+                
+                // Обновляем иконку
+                themeIcon.className = 'bi bi-moon';
+                
+                // Сохраняем выбор
+                localStorage.setItem('theme', 'light');
+            }
         }
 
-        // Загружаем сохраненную тему
+        // Загружаем сохраненную тему при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
             
-            const themeButton = document.querySelector('.header__theme-switcher');
-            themeButton.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            if (savedTheme === 'dark') {
+                toggleTheme(); // Применяем темную тему
+            }
         });
 
         // Переключение выбора карточки
@@ -408,34 +410,43 @@
             card.classList.toggle('product-card--selected');
             
             if (card.classList.contains('product-card--selected')) {
-                button.textContent = 'Выбрано ✓';
-                button.style.background = 'var(--color-success)';
+                button.innerHTML = '<i class="bi bi-check-circle me-1"></i>Выбрано ✓';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-success');
             } else {
-                button.textContent = 'Приобрести';
-                button.style.background = 'var(--color-primary)';
+                button.innerHTML = '<i class="bi bi-cart-plus me-1"></i>Приобрести';
+                button.classList.remove('btn-success');
+                button.classList.add('btn-primary');
             }
         }
 
         // Фильтрация по редкости
         document.addEventListener('DOMContentLoaded', function() {
-            const filterButtons = document.querySelectorAll('.filter__button');
+            const filterButtons = document.querySelectorAll('.filter-btn');
             const productCards = document.querySelectorAll('.product-card');
 
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     // Убираем активный класс со всех кнопок
-                    filterButtons.forEach(btn => btn.classList.remove('filter__button--active'));
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.classList.remove('btn-primary');
+                        btn.classList.add('btn-outline-primary');
+                    });
+                    
                     // Добавляем активный класс к нажатой кнопке
-                    this.classList.add('filter__button--active');
+                    this.classList.add('active');
+                    this.classList.remove('btn-outline-primary');
+                    this.classList.add('btn-primary');
 
                     const filter = this.getAttribute('data-filter');
 
                     productCards.forEach(card => {
                         if (filter === 'all' || card.getAttribute('data-rarity') === filter) {
-                            card.style.display = 'block';
+                            card.closest('.col-lg-4, .col-md-6').style.display = 'block';
                             card.style.animation = 'fadeIn 0.5s ease';
                         } else {
-                            card.style.display = 'none';
+                            card.closest('.col-lg-4, .col-md-6').style.display = 'none';
                         }
                     });
                 });

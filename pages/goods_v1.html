@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магический Арсенал</title>
+    <link rel="stylesheet" href="../style/styles.css">
+    <style>
+        /* Компонент карточки товара с состояниями */
+        .product-card {
+            background: var(--color-bg-primary);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        /* Базовое состояние */
+        .product-card {
+            transform: translateY(0);
+        }
+
+        /* Состояние при наведении */
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--color-primary);
+        }
+
+        /* Выбранное состояние */
+        .product-card--selected {
+            border-color: var(--color-success);
+            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+        }
+
+        .product-card--selected::before {
+            content: '✓';
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background: var(--color-success);
+            color: var(--color-text-inverse);
+            width: 30px;
+            height: 30px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-bold);
+            z-index: 1;
+        }
+
+        /* Состояние со скидкой */
+        .product-card--discount {
+            position: relative;
+        }
+
+        .product-card--discount::after {
+            content: 'Скидка 20%';
+            position: absolute;
+            top: var(--space-md);
+            left: var(--space-md);
+            background: var(--color-danger);
+            color: var(--color-text-inverse);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-bold);
+            z-index: 1;
+        }
+
+        /* Состояние недоступности */
+        .product-card--unavailable {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .product-card--unavailable:hover {
+            transform: none;
+            box-shadow: var(--shadow-md);
+        }
+
+        .product-card--unavailable .product-card__image {
+            filter: grayscale(100%);
+        }
+
+        .product-card--unavailable .product-card__button {
+            background: var(--color-gray);
+            cursor: not-allowed;
+        }
+
+        /* Элементы карточки */
+        .product-card__image {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .product-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-normal);
+        }
+
+        .product-card:hover .product-card__image img {
+            transform: scale(1.05);
+        }
+
+        .product-card__content {
+            padding: var(--space-xl);
+        }
+
+        .product-card__title {
+            font-size: var(--font-size-xl);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-md) 0;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .product-card__description {
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-normal);
+            margin-bottom: var(--space-lg);
+        }
+
+        .product-card__stats {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .product-card__stat {
+            background: var(--color-bg-secondary);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            color: var(--color-text-primary);
+            border-left: 3px solid var(--color-primary);
+        }
+
+        .product-card__price {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-danger);
+            margin-bottom: var(--space-lg);
+        }
+
+        .product-card__price--old {
+            text-decoration: line-through;
+            color: var(--color-text-muted);
+            font-size: var(--font-size-lg);
+            margin-right: var(--space-sm);
+        }
+
+        .product-card__button {
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            border: none;
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            width: 100%;
+        }
+
+        .product-card__button:hover {
+            background: var(--color-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .product-card__button:active {
+            transform: translateY(0);
+        }
+
+        /* Модификаторы редкости */
+        .product-card--legendary {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .product-card--mythic {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .product-card--epic {
+            border-color: #9b59b6;
+            box-shadow: 0 0 20px rgba(155, 89, 182, 0.3);
+        }
+
+        /* Сетка товаров */
+        .products__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-xxl) 0;
+        }
+
+        /* Фильтры */
+        .filters {
+            background: var(--color-bg-primary);
+            padding: var(--space-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .filters__title {
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-lg);
+            font-size: var(--font-size-xl);
+        }
+
+        .filters__list {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .filter__button {
+            background: var(--color-bg-secondary);
+            color: var(--color-text-primary);
+            border: 2px solid var(--color-light-gray);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .filter__button:hover {
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            border-color: var(--color-primary);
+        }
+
+        .filter__button--active {
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            border-color: var(--color-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <h1 class="header__title">🔮 Магический Арсенал "Кристалл и Тьма" 🔮</h1>
+            <button class="header__theme-switcher" onclick="toggleTheme()" title="Переключить тему">
+                🌙
+            </button>
+        </header>
+        
+        <nav class="nav">
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a class="nav__link" href="../index.html">Главная</a>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="news.html">Новости</a>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="practices.html">Практики</a>
+                </li>
+                <li class="nav__item nav__item--active">
+                    <a class="nav__link" href="goods.html">Товары</a>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="contacts.html">Контакты</a>
+                </li>
+            </ul>
+        </nav>
+        
+        <main class="main">
+            <section class="about">
+                <h1 class="about__title">Артефакты и Магические Компоненты</h1>
+                <p class="about__text">
+                    Каждый предмет в нашем арсенале прошел тщательную проверку на подлинность и энергетическую чистоту. 
+                    Все артефакты заряжены в соответствии с лунными циклами для максимальной эффективности.
+                </p>
+            </section>
+
+            <!-- Фильтры -->
+            <div class="filters">
+                <h3 class="filters__title">Фильтры по редкости:</h3>
+                <div class="filters__list">
+                    <button class="filter__button filter__button--active" data-filter="all">Все</button>
+                    <button class="filter__button" data-filter="legendary">Легендарные</button>
+                    <button class="filter__button" data-filter="mythic">Мифические</button>
+                    <button class="filter__button" data-filter="epic">Эпические</button>
+                </div>
+            </div>
+            
+            <div class="products__grid">
+                <article class="product-card product-card--legendary" data-rarity="legendary">
+                    <div class="product-card__image">
+                        <img src="../images/goods1.jpg" alt="Импала" width="250" height="250">
+                    </div>
+                    <div class="product-card__content">
+                        <h3 class="product-card__title">Импала</h3>
+                        <p class="product-card__description">
+                            Импала 1967 года из сериала "Сверхъестественное" — это культовый автомобиль, который стал символом шоу и мобильной базой для братьев Винчестеров. 
+                            С гладким дизайном и агрессивным видом, он хранит охотничьи принадлежности и личные вещи, олицетворяя семью и их связь с прошлым.
+                        </p>
+                        <div class="product-card__stats">
+                            <span class="product-card__stat">⚡ +1000 к мане</span>
+                            <span class="product-card__stat">🔥 +500 к силе заклинаний</span>
+                            <span class="product-card__stat">🛡️ Защита от темной магии</span>
+                        </div>
+                        <div class="product-card__price">
+                            <span class="product-card__price--old">7 500 000₽</span>
+                            6 000 000₽
+                        </div>
+                        <button class="product-card__button" onclick="toggleSelection(this)">Приобрести</button>
+                    </div>
+                </article>
+                
+                <article class="product-card product-card--mythic product-card--discount" data-rarity="mythic">
+                    <div class="product-card__image">
+                        <img src="../images/goods2.jpg" alt="Бункер Хранителей" width="250" height="250">
+                    </div>
+                    <div class="product-card__content">
+                        <h3 class="product-card__title">Бункер Хранителей</h3>
+                        <p class="product-card__description">
+                            Бункер Хранителей, известный как "Бункер", является подземным убежищем в сериале "Сверхъестественное", 
+                            построенным древним орденом Хранителей для защиты знаний о сверхъестественном.
+                        </p>
+                        <div class="product-card__stats">
+                            <span class="product-card__stat">♾️ Бессмертие</span>
+                            <span class="product-card__stat">🌌 Путешествия между мирами</span>
+                            <span class="product-card__stat">⏰ Контроль времени</span>
+                        </div>
+                        <div class="product-card__price">
+                            <span class="product-card__price--old">125 000 000 000₽</span>
+                            100 000 000 000₽
+                        </div>
+                        <button class="product-card__button" onclick="toggleSelection(this)">Приобрести</button>
+                    </div>
+                </article>
+                
+                <article class="product-card product-card--epic product-card--unavailable" data-rarity="epic">
+                    <div class="product-card__image">
+                        <img src="../images/goods3.jpg" alt="Дневник Джона Винчестера" width="250" height="250">
+                    </div>
+                    <div class="product-card__content">
+                        <h3 class="product-card__title">Дневник Джона Винчестера</h3>
+                        <p class="product-card__description">
+                            Это важный артефакт, содержащий записи о его охоте на сверхъестественные существа, 
+                            а также личные размышления о семье и потерях.
+                        </p>
+                        <div class="product-card__stats">
+                            <span class="product-card__stat">🌙 +300 к лунной магии</span>
+                            <span class="product-card__stat">👻 Призыв духов</span>
+                            <span class="product-card__stat">✨ Очищение от проклятий</span>
+                        </div>
+                        <div class="product-card__price">1 000 000₽</div>
+                        <button class="product-card__button" disabled>Нет в наличии</button>
+                    </div>
+                </article>
+            </div>
+            
+            <aside class="about">
+                <h3 class="about__title">⚠️ ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ</h3>
+                <p class="about__text">
+                    Все артефакты требуют соответствующего уровня магических способностей. 
+                    Неправильное использование может привести к непредсказуемым последствиям. 
+                    Перед покупкой проконсультируйтесь с нашими специалистами.
+                </p>
+            </aside>
+        </main>
+        
+        <footer class="footer">
+            <p class="footer__text">© 2024 Магический Арсенал "Кристалл и Тьма". Все права защищены древними заклинаниями.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Переключатель темы
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const themeButton = document.querySelector('.header__theme-switcher');
+            themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Загружаем сохраненную тему
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            const themeButton = document.querySelector('.header__theme-switcher');
+            themeButton.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Переключение выбора карточки
+        function toggleSelection(button) {
+            const card = button.closest('.product-card');
+            card.classList.toggle('product-card--selected');
+            
+            if (card.classList.contains('product-card--selected')) {
+                button.textContent = 'Выбрано ✓';
+                button.style.background = 'var(--color-success)';
+            } else {
+                button.textContent = 'Приобрести';
+                button.style.background = 'var(--color-primary)';
+            }
+        }
+
+        // Фильтрация по редкости
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter__button');
+            const productCards = document.querySelectorAll('.product-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Убираем активный класс со всех кнопок
+                    filterButtons.forEach(btn => btn.classList.remove('filter__button--active'));
+                    // Добавляем активный класс к нажатой кнопке
+                    this.classList.add('filter__button--active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    productCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-rarity') === filter) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeIn 0.5s ease';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+
+        // Добавляем анимацию появления карточек
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
