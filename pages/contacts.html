@@ -14,9 +14,9 @@
         
         dialog {
             border: none;
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             padding: 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow-2xl);
             animation: slideIn 0.3s ease;
             max-width: 500px;
             width: 90vw;
@@ -24,98 +24,101 @@
             overflow-y: auto;
         }
         
-        .modal-header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 12px 12px 0 0;
+        .modal__header {
+            background: var(--color-secondary);
+            color: var(--color-text-inverse);
+            padding: var(--space-xl);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
             margin: 0;
         }
         
-        .modal-header h2 {
+        .modal__header h2 {
             margin: 0;
-            color: white;
-            font-size: 1.5rem;
+            color: var(--color-text-inverse);
+            font-size: var(--font-size-2xl);
         }
         
-        .modal-content {
-            padding: 2rem;
+        .modal__content {
+            padding: var(--space-xl);
         }
         
-        .form-group {
-            margin-bottom: 1.5rem;
+        .form__group {
+            margin-bottom: var(--space-lg);
         }
         
-        .form-group label {
+        .form__label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #2c3e50;
+            margin-bottom: var(--space-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
         }
         
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form__input,
+        .form__select,
+        .form__textarea {
             width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e9ecef;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+            padding: var(--space-md);
+            border: 2px solid var(--color-light-gray);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            transition: border-color var(--transition-normal);
             box-sizing: border-box;
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
         }
         
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        .form__input:focus,
+        .form__select:focus,
+        .form__textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--color-primary);
         }
         
-        .form-group textarea {
+        .form__textarea {
             min-height: 100px;
             resize: vertical;
         }
         
-        .modal-actions {
+        .modal__actions {
             display: flex;
-            gap: 1rem;
+            gap: var(--space-md);
             justify-content: flex-end;
-            margin-top: 2rem;
+            margin-top: var(--space-xl);
         }
         
         .btn {
-            padding: 0.75rem 1.5rem;
+            padding: var(--space-md) var(--space-lg);
             border: none;
-            border-radius: 6px;
+            border-radius: var(--radius-md);
             cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-weight: 600;
+            font-size: var(--font-size-base);
+            transition: all var(--transition-normal);
+            font-weight: var(--font-weight-semibold);
         }
         
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        .btn--primary {
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
         }
         
-        .btn-primary:hover {
+        .btn--primary:hover {
+            background: var(--color-primary-hover);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: var(--shadow-md);
         }
         
-        .btn-secondary {
-            background: #f8f9fa;
-            color: #2c3e50;
-            border: 2px solid #e9ecef;
+        .btn--secondary {
+            background: var(--color-bg-secondary);
+            color: var(--color-text-primary);
+            border: 2px solid var(--color-light-gray);
         }
         
-        .btn-secondary:hover {
-            background: #e9ecef;
+        .btn--secondary:hover {
+            background: var(--color-light-gray);
         }
         
         .required {
-            color: #e74c3c;
+            color: var(--color-danger);
         }
         
         @keyframes fadeIn {
@@ -137,11 +140,11 @@
         /* Адаптивность */
         @media (max-width: 600px) {
             dialog {
-                margin: 1rem;
+                margin: var(--space-md);
                 width: calc(100vw - 2rem);
             }
             
-            .modal-actions {
+            .modal__actions {
                 flex-direction: column;
             }
             
@@ -152,83 +155,101 @@
     </style>
 </head>
 <body>
-    <div class="page-container">
+    <div class="page">
         <header class="header">
-            <h1>📞 Центр Связи с Потусторонним Миром 📞</h1>
+            <h1 class="header__title">📞 Центр Связи с Потусторонним Миром 📞</h1>
+            <button class="header__theme-switcher" onclick="toggleTheme()" title="Переключить тему">
+                🌙
+            </button>
         </header>
         
         <nav class="nav">
-            <ul class="nav-list">
-                <li class="nav-item"><a class="nav-link" href="../index.html">Главная</a></li>
-                <li class="nav-item"><a class="nav-link" href="news.html">Новости</a></li>
-                <li class="nav-item"><a class="nav-link" href="practices.html">Практики</a></li>
-                <li class="nav-item"><a class="nav-link" href="goods.html">Товары</a></li>
-                <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a class="nav__link" href="../index.html">Главная</a>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="news.html">Новости</a>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="practices.html">Практики</a>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="goods.html">Товары</a>
+                </li>
+                <li class="nav__item nav__item--active">
+                    <a class="nav__link" href="contacts.html">Контакты</a>
+                </li>
             </ul>
         </nav>
         
-        <main class="content">
-            <section class="contact-section">
-                <header>
-                    <h1 class="section-title">Свяжитесь с Нами</h1>
-                    <p class="contact-description">Если вы столкнулись с паранормальными явлениями или нуждаетесь в магической помощи, мы всегда готовы прийти на помощь. Наши специалисты работают круглосуточно.</p>
-                </header>
+        <main class="main">
+            <section class="contacts">
+                <h1 class="contacts__title">Свяжитесь с Нами</h1>
+                <p class="contacts__description text-center mb-4">
+                    Если вы столкнулись с паранормальными явлениями или нуждаетесь в магической помощи, 
+                    мы всегда готовы прийти на помощь. Наши специалисты работают круглосуточно.
+                </p>
                 
-                <div class="contact-grid">
-                    <article class="contact-card emergency">
-                        <div class="contact-icon">🚨</div>
-                        <h3 class="contact-title">Экстренная Связь</h3>
-                        <p class="contact-description">Для критических ситуаций с демонами, призраками или другими опасными сущностями</p>
-                        <div class="contact-info">
-                            <span class="contact-label">Телефон:</span>
-                            <span class="contact-value">+7 (666) 666-66-66</span>
+                <div class="contacts__list">
+                    <article class="contact-item contact-item--emergency">
+                        <span class="contact-item__icon">🚨</span>
+                        <h3 class="contact-item__title">Экстренная Связь</h3>
+                        <p class="contact-item__desc">Для критических ситуаций с демонами, призраками или другими опасными сущностями</p>
+                        <div class="contact-item__info">
+                            <span class="contact-item__label">Телефон:</span>
+                            <span class="contact-item__value">+7 (666) 666-66-66</span>
                         </div>
-                        <div class="contact-info">
-                            <span class="contact-label">Email:</span>
-                            <span class="contact-value">emergency@supernatural.ru</span>
+                        <div class="contact-item__info">
+                            <span class="contact-item__label">Email:</span>
+                            <span class="contact-item__value">emergency@supernatural.ru</span>
                         </div>
-                        <button class="contact-button emergency-btn">Срочный Вызов</button>
+                        <button class="contact-item__button">Срочный Вызов</button>
                     </article>
                     
-                    <article class="contact-card consultation">
-                        <div class="contact-icon">🔮</div>
-                        <h3 class="contact-title">Магические Консультации</h3>
-                        <p class="contact-description">Для получения советов по магическим практикам и ритуалам</p>
-                        <div class="contact-info">
-                            <span class="contact-label">Телефон:</span>
-                            <span class="contact-value">+7 (777) 777-77-77</span>
+                    <article class="contact-item contact-item--consultation">
+                        <span class="contact-item__icon">🔮</span>
+                        <h3 class="contact-item__title">Магические Консультации</h3>
+                        <p class="contact-item__desc">Для получения советов по магическим практикам и ритуалам</p>
+                        <div class="contact-item__info">
+                            <span class="contact-item__label">Телефон:</span>
+                            <span class="contact-item__value">+7 (777) 777-77-77</span>
                         </div>
-                        <div class="contact-info">
-                            <span class="contact-label">Email:</span>
-                            <span class="contact-value">consultation@supernatural.ru</span>
+                        <div class="contact-item__info">
+                            <span class="contact-item__label">Email:</span>
+                            <span class="contact-item__value">consultation@supernatural.ru</span>
                         </div>
-                        <button class="contact-button consultation-btn" onclick="contactModal.showModal()">Записаться на Консультацию</button>
+                        <button class="contact-item__button" onclick="contactModal.showModal()">Записаться на Консультацию</button>
                     </article>
                     
-                    <article class="contact-card office">
-                        <div class="contact-icon">🏢</div>
-                        <h3 class="contact-title">Офис Центра</h3>
-                        <p class="contact-description">Наш главный офис в самом мистическом районе города</p>
-                        <div class="contact-info">
-                            <span class="contact-label">Адрес:</span>
-                            <span class="contact-value">г. Москва, ул. Призрачная, д. 13</span>
+                    <article class="contact-item contact-item--office">
+                        <span class="contact-item__icon">🏢</span>
+                        <h3 class="contact-item__title">Офис Центра</h3>
+                        <p class="contact-item__desc">Наш главный офис в самом мистическом районе города</p>
+                        <div class="contact-item__info">
+                            <span class="contact-item__label">Адрес:</span>
+                            <span class="contact-item__value">г. Москва, ул. Призрачная, д. 13</span>
                         </div>
-                        <div class="contact-info">
-                            <span class="contact-label">Часы работы:</span>
-                            <span class="contact-value">24/7 (круглосуточно)</span>
+                        <div class="contact-item__info">
+                            <span class="contact-item__label">Часы работы:</span>
+                            <span class="contact-item__value">24/7 (круглосуточно)</span>
                         </div>
-                        <button class="contact-button office-btn">Найти на Карте</button>
+                        <button class="contact-item__button">Найти на Карте</button>
                     </article>
                 </div>
                 
-                <aside class="contact-warning">
-                    <h3>⚠️ ВАЖНО</h3>
-                    <p>При обращении в экстренную службу будьте готовы описать ситуацию максимально подробно. Наши операторы обучены работе с различными типами сверхъестественных явлений. Помните: ложные вызовы могут привлечь нежелательное внимание темных сил.</p>
+                <aside class="about">
+                    <h3 class="about__title">⚠️ ВАЖНО</h3>
+                    <p class="about__text">
+                        При обращении в экстренную службу будьте готовы описать ситуацию максимально подробно. 
+                        Наши операторы обучены работе с различными типами сверхъестественных явлений. 
+                        Помните: ложные вызовы могут привлечь нежелательное внимание темных сил.
+                    </p>
                 </aside>
                 
                 <!-- Кнопка для открытия модального окна -->
-                <div style="text-align: center; margin: 40px 0;">
-                    <button class="contact-button" onclick="contactModal.showModal()" style="font-size: 18px; padding: 15px 40px;">
+                <div class="text-center mt-5">
+                    <button class="contact-item__button" onclick="contactModal.showModal()" style="font-size: var(--font-size-lg); padding: var(--space-lg) var(--space-xl);">
                         📝 Отправить Сообщение через Модальное Окно
                     </button>
                 </div>
@@ -236,35 +257,35 @@
         </main>
         
         <footer class="footer">
-            <p>© 2024 Центр Связи с Потусторонним Миром. Все права защищены древними заклинаниями.</p>
+            <p class="footer__text">© 2024 Центр Связи с Потусторонним Миром. Все права защищены древними заклинаниями.</p>
         </footer>
         
         <!-- Модальное окно для формы обратной связи -->
         <dialog id="contactModal">
-            <div class="modal-header">
+            <div class="modal__header">
                 <h2>🔮 Форма обратной связи</h2>
             </div>
             
-            <div class="modal-content">
+            <div class="modal__content">
                 <form id="feedbackForm" method="dialog">
-                    <div class="form-group">
-                        <label for="name">Имя <span class="required">*</span></label>
-                        <input type="text" id="name" name="name" required placeholder="Введите ваше имя">
+                    <div class="form__group">
+                        <label for="name" class="form__label">Имя <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" class="form__input" required placeholder="Введите ваше имя">
                     </div>
                     
-                    <div class="form-group">
-                        <label for="phone">Телефон <span class="required">*</span></label>
-                        <input type="tel" id="phone" name="phone" required placeholder="+7 (XXX) XXX-XX-XX">
+                    <div class="form__group">
+                        <label for="phone" class="form__label">Телефон <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" class="form__input" required placeholder="+7 (XXX) XXX-XX-XX">
                     </div>
                     
-                    <div class="form-group">
-                        <label for="email">Электронная почта <span class="required">*</span></label>
-                        <input type="email" id="email" name="email" required placeholder="example@mail.ru">
+                    <div class="form__group">
+                        <label for="email" class="form__label">Электронная почта <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" class="form__input" required placeholder="example@mail.ru">
                     </div>
                     
-                    <div class="form-group">
-                        <label for="category">Категория обращения <span class="required">*</span></label>
-                        <select id="category" name="category" required>
+                    <div class="form__group">
+                        <label for="category" class="form__label">Категория обращения <span class="required">*</span></label>
+                        <select id="category" name="category" class="form__select" required>
                             <option value="">Выберите категорию</option>
                             <option value="emergency">🚨 Экстренная ситуация</option>
                             <option value="consultation">🔮 Магическая консультация</option>
@@ -276,34 +297,50 @@
                         </select>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="message">Текст обращения <span class="required">*</span></label>
-                        <textarea id="message" name="message" required placeholder="Опишите подробно вашу ситуацию или вопрос..."></textarea>
+                    <div class="form__group">
+                        <label for="message" class="form__label">Текст обращения <span class="required">*</span></label>
+                        <textarea id="message" name="message" class="form__textarea" required placeholder="Опишите подробно вашу ситуацию или вопрос..."></textarea>
                     </div>
                     
-                    <div class="modal-actions">
-                        <!-- Кнопка отмены с автоматическим закрытием через form method="dialog" -->
-                        <button type="submit" class="btn btn-secondary">Отмена</button>
-                        <!-- Кнопка отправки с обработкой через JavaScript -->
-                        <button type="button" class="btn btn-primary" onclick="submitForm()">Отправить</button>
+                    <div class="modal__actions">
+                        <button type="submit" class="btn btn--secondary">Отмена</button>
+                        <button type="button" class="btn btn--primary" onclick="submitForm()">Отправить</button>
                     </div>
                 </form>
             </div>
         </dialog>
         
         <script>
+            // Переключатель темы
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                const themeButton = document.querySelector('.header__theme-switcher');
+                themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            }
+
+            // Загружаем сохраненную тему
+            document.addEventListener('DOMContentLoaded', function() {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                
+                const themeButton = document.querySelector('.header__theme-switcher');
+                themeButton.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            });
+
             // Функция для отправки формы
             function submitForm() {
                 const form = document.getElementById('feedbackForm');
                 const formData = new FormData(form);
                 
-                // Простая валидация
                 if (!form.checkValidity()) {
                     form.reportValidity();
                     return;
                 }
                 
-                // Собираем данные формы
                 const data = {
                     name: formData.get('name'),
                     phone: formData.get('phone'),
@@ -312,16 +349,10 @@
                     message: formData.get('message')
                 };
                 
-                // В реальном приложении здесь был бы AJAX-запрос
                 console.log('Данные формы:', data);
-                
-                // Показываем уведомление об успешной отправке
                 alert('🔮 Спасибо! Ваше обращение отправлено в магический архив. Мы свяжемся с вами в ближайшее время через астральный канал связи.');
                 
-                // Закрываем модальное окно
                 contactModal.close();
-                
-                // Очищаем форму
                 form.reset();
             }
             
@@ -332,14 +363,7 @@
                 }
             });
             
-            // Обработка отправки формы через Enter (предотвращаем стандартное поведение)
-            document.getElementById('feedbackForm').addEventListener('keypress', function(event) {
-                if (event.key === 'Enter' && event.target.type !== 'textarea') {
-                    event.preventDefault();
-                }
-            });
-            
-            // Дополнительная валидация для телефона
+            // Форматирование телефона
             document.getElementById('phone').addEventListener('input', function(event) {
                 let value = event.target.value.replace(/\D/g, '');
                 if (value.length > 0) {

@@ -5,136 +5,310 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Магические Практики</title>
     <link rel="stylesheet" href="../style/styles.css">
+    <style>
+        /* Компонент карточки практики */
+        .practice-card {
+            background: var(--color-bg-primary);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .practice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Модификаторы уровней сложности */
+        .practice-card--beginner {
+            border-top: 5px solid var(--color-success);
+        }
+
+        .practice-card--intermediate {
+            border-top: 5px solid var(--color-warning);
+        }
+
+        .practice-card--advanced {
+            border-top: 5px solid var(--color-danger);
+        }
+
+        .practice-card--expert {
+            border-top: 5px solid var(--color-primary);
+        }
+
+        .practice-card__header {
+            background: var(--color-bg-secondary);
+            padding: var(--space-xl);
+            border-bottom: 1px solid var(--color-light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .practice-card__title {
+            font-size: var(--font-size-xl);
+            color: var(--color-text-primary);
+            margin: 0;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .practice-card__level {
+            background: var(--color-gray);
+            color: var(--color-text-inverse);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .practice-card--beginner .practice-card__level {
+            background: var(--color-success);
+        }
+
+        .practice-card--intermediate .practice-card__level {
+            background: var(--color-warning);
+            color: var(--color-text-primary);
+        }
+
+        .practice-card--advanced .practice-card__level {
+            background: var(--color-danger);
+        }
+
+        .practice-card--expert .practice-card__level {
+            background: var(--color-primary);
+        }
+
+        .practice-card__content {
+            padding: var(--space-xl);
+        }
+
+        .practice-card__description {
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-normal);
+            margin-bottom: var(--space-lg);
+        }
+
+        .practice-card__steps h4 {
+            color: var(--color-text-primary);
+            margin: var(--space-lg) 0 var(--space-md) 0;
+            font-size: var(--font-size-lg);
+        }
+
+        .practice-card__steps ul,
+        .practice-card__steps ol {
+            margin: var(--space-md) 0;
+            padding-left: var(--space-lg);
+        }
+
+        .practice-card__steps li {
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-normal);
+            margin-bottom: var(--space-sm);
+        }
+
+        .practice-card__duration {
+            background: var(--color-bg-secondary);
+            color: var(--color-text-primary);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            text-align: center;
+            margin-top: var(--space-lg);
+        }
+
+        .practices__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-xxl) 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="page-container">
+    <div class="page">
         <header class="header">
-            <h1>🔮 Магические Практики и Ритуалы 🔮</h1>
+            <h1 class="header__title">🔮 Магические Практики и Ритуалы 🔮</h1>
+            <button class="header__theme-switcher" onclick="toggleTheme()" title="Переключить тему">
+                🌙
+            </button>
         </header>
         
         <nav class="nav">
-            <ul class="nav-list">
-                <li class="nav-item"><a class="nav-link" href="../index.html">Главная</a></li>
-                <li class="nav-item"><a class="nav-link" href="news.html">Новости</a></li>
-                <li class="nav-item"><a class="nav-link" href="practices.html">Практики</a></li>
-                <li class="nav-item"><a class="nav-link" href="goods.html">Товары</a></li>
-                <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a class="nav__link" href="../index.html">Главная</a>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="news.html">Новости</a>
+                </li>
+                <li class="nav__item nav__item--active">
+                    <a class="nav__link" href="practices.html">Практики</a>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="goods.html">Товары</a>
+                </li>
+                <li class="nav__item">
+                    <a class="nav__link" href="contacts.html">Контакты</a>
+                </li>
             </ul>
         </nav>
         
-        <main class="content">
-            <section class="practices-section">
-                <header>
-                    <h1 class="section-title">Изучение Магических Искусств</h1>
-                    <p class="practices-description">Здесь вы найдете руководства по различным магическим практикам, от базовых техник для начинающих до сложных ритуалов для опытных практиков. Все практики проверены временем и безопасны при правильном выполнении.</p>
-                </header>
-                
-                <div class="practices-grid">
-                    <article class="practice-card beginner">
-                        <header class="practice-header">
-                            <h3 class="practice-title">🌙 Лунная Медитация</h3>
-                            <span class="practice-level">Начинающий</span>
-                        </header>
-                        <div class="practice-content">
-                            <p class="practice-description">Базовая техника для настройки на лунные циклы и развития внутренней энергии. Идеально подходит для новичков в магических практиках.</p>
-                            <div class="practice-steps">
-                                <h4>Шаги выполнения:</h4>
-                                <ol>
-                                    <li>Найдите тихое место под открытым небом</li>
-                                    <li>Сядьте в удобную позу лицом к луне</li>
-                                    <li>Закройте глаза и дышите глубоко</li>
-                                    <li>Представьте, как лунный свет наполняет ваше тело</li>
-                                    <li>Медитируйте 15-30 минут</li>
-                                </ol>
-                            </div>
-                            <div class="practice-duration">⏱️ 15-30 минут</div>
-                        </div>
-                    </article>
-                    
-                    <article class="practice-card intermediate">
-                        <header class="practice-header">
-                            <h3 class="practice-title">🔮 Ритуал Очищения</h3>
-                            <span class="practice-level">Средний</span>
-                        </header>
-                        <div class="practice-content">
-                            <p class="practice-description">Ритуал для очищения пространства от негативной энергии и защиты от темных сил. Требует базовых знаний магических символов.</p>
-                            <div class="practice-steps">
-                                <h4>Необходимые компоненты:</h4>
-                                <ul>
-                                    <li>Белая свеча</li>
-                                    <li>Соль</li>
-                                    <li>Святая вода</li>
-                                    <li>Кристалл кварца</li>
-                                </ul>
-                                <h4>Процедура:</h4>
-                                <ol>
-                                    <li>Зажгите свечу в центре комнаты</li>
-                                    <li>Обойдите помещение по часовой стрелке с солью</li>
-                                    <li>Произнесите заклинание очищения</li>
-                                    <li>Разбрызгайте святую воду</li>
-                                    <li>Поместите кристалл в центр</li>
-                                </ol>
-                            </div>
-                            <div class="practice-duration">⏱️ 45-60 минут</div>
-                        </div>
-                    </article>
-                    
-                    <article class="practice-card advanced">
-                        <header class="practice-header">
-                            <h3 class="practice-title">⚡ Призыв Духов</h3>
-                            <span class="practice-level">Продвинутый</span>
-                        </header>
-                        <div class="practice-content">
-                            <p class="practice-description">Сложный ритуал для установления связи с духами-проводниками. Требует многолетнего опыта и глубоких знаний в области некромантии.</p>
-                            <div class="practice-steps">
-                                <h4>⚠️ ВНИМАНИЕ: Опасная практика!</h4>
-                                <p>Этот ритуал может быть опасен для неподготовленных практиков. Выполняйте только в присутствии опытного наставника.</p>
-                                <h4>Необходимые компоненты:</h4>
-                                <ul>
-                                    <li>Круг из соли</li>
-                                    <li>Свечи (7 штук)</li>
-                                    <li>Кристаллы защиты</li>
-                                    <li>Древние символы</li>
-                                    <li>Защитные амулеты</li>
-                                </ul>
-                            </div>
-                            <div class="practice-duration">⏱️ 2-3 часа</div>
-                        </div>
-                    </article>
-                    
-                    <article class="practice-card expert">
-                        <header class="practice-header">
-                            <h3 class="practice-title">🌌 Путешествие между Мирами</h3>
-                            <span class="practice-level">Эксперт</span>
-                        </header>
-                        <div class="practice-content">
-                            <p class="practice-description">Высшая форма магической практики - астральные путешествия в другие измерения. Доступно только мастерам высшего уровня.</p>
-                            <div class="practice-steps">
-                                <h4>⚠️ КРИТИЧЕСКИ ОПАСНО!</h4>
-                                <p>Эта практика может привести к потере души или застреванию в астральном плане. Выполняется только в специально подготовленных местах под наблюдением группы опытных магов.</p>
-                                <h4>Требования:</h4>
-                                <ul>
-                                    <li>Минимум 10 лет практики</li>
-                                    <li>Полное знание защитных ритуалов</li>
-                                    <li>Группа из 3+ опытных магов</li>
-                                    <li>Специально подготовленное место</li>
-                                </ul>
-                            </div>
-                            <div class="practice-duration">⏱️ 6-12 часов</div>
-                        </div>
-                    </article>
-                </div>
-                
-                <aside class="practices-warning">
-                    <h3>⚠️ ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ</h3>
-                    <p>Магические практики могут быть опасны при неправильном выполнении. Всегда начинайте с простых техник и постепенно переходите к более сложным. Никогда не практикуйте в одиночку сложные ритуалы. При возникновении проблем немедленно обратитесь к опытному магу.</p>
-                </aside>
+        <main class="main">
+            <section class="about">
+                <h1 class="about__title">Изучение Магических Искусств</h1>
+                <p class="about__text">
+                    Здесь вы найдете руководства по различным магическим практикам, от базовых техник для начинающих до сложных ритуалов для опытных практиков. 
+                    Все практики проверены временем и безопасны при правильном выполнении.
+                </p>
             </section>
+            
+            <div class="practices__grid">
+                <article class="practice-card practice-card--beginner">
+                    <header class="practice-card__header">
+                        <h3 class="practice-card__title">🌙 Лунная Медитация</h3>
+                        <span class="practice-card__level">Начинающий</span>
+                    </header>
+                    <div class="practice-card__content">
+                        <p class="practice-card__description">
+                            Базовая техника для настройки на лунные циклы и развития внутренней энергии. 
+                            Идеально подходит для новичков в магических практиках.
+                        </p>
+                        <div class="practice-card__steps">
+                            <h4>Шаги выполнения:</h4>
+                            <ol>
+                                <li>Найдите тихое место под открытым небом</li>
+                                <li>Сядьте в удобную позу лицом к луне</li>
+                                <li>Закройте глаза и дышите глубоко</li>
+                                <li>Представьте, как лунный свет наполняет ваше тело</li>
+                                <li>Медитируйте 15-30 минут</li>
+                            </ol>
+                        </div>
+                        <div class="practice-card__duration">⏱️ 15-30 минут</div>
+                    </div>
+                </article>
+                
+                <article class="practice-card practice-card--intermediate">
+                    <header class="practice-card__header">
+                        <h3 class="practice-card__title">🔮 Ритуал Очищения</h3>
+                        <span class="practice-card__level">Средний</span>
+                    </header>
+                    <div class="practice-card__content">
+                        <p class="practice-card__description">
+                            Ритуал для очищения пространства от негативной энергии и защиты от темных сил. 
+                            Требует базовых знаний магических символов.
+                        </p>
+                        <div class="practice-card__steps">
+                            <h4>Необходимые компоненты:</h4>
+                            <ul>
+                                <li>Белая свеча</li>
+                                <li>Соль</li>
+                                <li>Святая вода</li>
+                                <li>Кристалл кварца</li>
+                            </ul>
+                            <h4>Процедура:</h4>
+                            <ol>
+                                <li>Зажгите свечу в центре комнаты</li>
+                                <li>Обойдите помещение по часовой стрелке с солью</li>
+                                <li>Произнесите заклинание очищения</li>
+                                <li>Разбрызгайте святую воду</li>
+                                <li>Поместите кристалл в центр</li>
+                            </ol>
+                        </div>
+                        <div class="practice-card__duration">⏱️ 45-60 минут</div>
+                    </div>
+                </article>
+                
+                <article class="practice-card practice-card--advanced">
+                    <header class="practice-card__header">
+                        <h3 class="practice-card__title">⚡ Призыв Духов</h3>
+                        <span class="practice-card__level">Продвинутый</span>
+                    </header>
+                    <div class="practice-card__content">
+                        <p class="practice-card__description">
+                            Сложный ритуал для установления связи с духами-проводниками. 
+                            Требует многолетнего опыта и глубоких знаний в области некромантии.
+                        </p>
+                        <div class="practice-card__steps">
+                            <h4>⚠️ ВНИМАНИЕ: Опасная практика!</h4>
+                            <p>Этот ритуал может быть опасен для неподготовленных практиков. Выполняйте только в присутствии опытного наставника.</p>
+                            <h4>Необходимые компоненты:</h4>
+                            <ul>
+                                <li>Круг из соли</li>
+                                <li>Свечи (7 штук)</li>
+                                <li>Кристаллы защиты</li>
+                                <li>Древние символы</li>
+                                <li>Защитные амулеты</li>
+                            </ul>
+                        </div>
+                        <div class="practice-card__duration">⏱️ 2-3 часа</div>
+                    </div>
+                </article>
+                
+                <article class="practice-card practice-card--expert">
+                    <header class="practice-card__header">
+                        <h3 class="practice-card__title">🌌 Путешествие между Мирами</h3>
+                        <span class="practice-card__level">Эксперт</span>
+                    </header>
+                    <div class="practice-card__content">
+                        <p class="practice-card__description">
+                            Высшая форма магической практики - астральные путешествия в другие измерения. 
+                            Доступно только мастерам высшего уровня.
+                        </p>
+                        <div class="practice-card__steps">
+                            <h4>⚠️ КРИТИЧЕСКИ ОПАСНО!</h4>
+                            <p>Эта практика может привести к потере души или застреванию в астральном плане. 
+                            Выполняется только в специально подготовленных местах под наблюдением группы опытных магов.</p>
+                            <h4>Требования:</h4>
+                            <ul>
+                                <li>Минимум 10 лет практики</li>
+                                <li>Полное знание защитных ритуалов</li>
+                                <li>Группа из 3+ опытных магов</li>
+                                <li>Специально подготовленное место</li>
+                            </ul>
+                        </div>
+                        <div class="practice-card__duration">⏱️ 6-12 часов</div>
+                    </div>
+                </article>
+            </div>
+            
+            <aside class="about">
+                <h3 class="about__title">⚠️ ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ</h3>
+                <p class="about__text">
+                    Магические практики могут быть опасны при неправильном выполнении. Всегда начинайте с простых техник и постепенно переходите к более сложным. 
+                    Никогда не практикуйте в одиночку сложные ритуалы. При возникновении проблем немедленно обратитесь к опытному магу.
+                </p>
+            </aside>
         </main>
         
         <footer class="footer">
-            <p>© 2024 Магические Практики. Все права защищены древними заклинаниями.</p>
+            <p class="footer__text">© 2024 Магические Практики. Все права защищены древними заклинаниями.</p>
         </footer>
     </div>
+
+    <script>
+        // Переключатель темы
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const themeButton = document.querySelector('.header__theme-switcher');
+            themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Загружаем сохраненную тему
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            const themeButton = document.querySelector('.header__theme-switcher');
+            themeButton.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        });
+    </script>
 </body>
 </html>
