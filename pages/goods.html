@@ -105,6 +105,76 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
+        
+        /* Стили для темной темы */
+        .bg-dark .card {
+            background-color: #212529 !important;
+            border-color: #495057 !important;
+        }
+        
+        .bg-dark .card-header {
+            background-color: #343a40 !important;
+            border-color: #495057 !important;
+        }
+        
+        .bg-dark .card-title,
+        .bg-dark .card-text,
+        .bg-dark .h1, .bg-dark .h2, .bg-dark .h3, .bg-dark .h4, .bg-dark .h5, .bg-dark .h6,
+        .bg-dark p, .bg-dark span, .bg-dark div {
+            color: #ffffff !important;
+        }
+        
+        .bg-dark .text-muted {
+            color: #adb5bd !important;
+        }
+        
+        .bg-dark .text-primary {
+            color: #0d6efd !important;
+        }
+        
+        .bg-dark .text-success {
+            color: #198754 !important;
+        }
+        
+        .bg-dark .text-warning {
+            color: #ffc107 !important;
+        }
+        
+        .bg-dark .text-danger {
+            color: #dc3545 !important;
+        }
+        
+        .bg-dark .text-info {
+            color: #0dcaf0 !important;
+        }
+        
+        .bg-dark .text-secondary {
+            color: #6c757d !important;
+        }
+        
+        .bg-dark .navbar-nav .nav-link {
+            color: #ffffff !important;
+        }
+        
+        .bg-dark .navbar-nav .nav-link:hover {
+            color: #0d6efd !important;
+        }
+        
+        .bg-dark .navbar-nav .nav-link.active {
+            color: #0d6efd !important;
+        }
+        
+        .bg-dark .alert {
+            background-color: #212529 !important;
+            border-color: #495057 !important;
+            color: #ffffff !important;
+        }
+        
+        .bg-dark .alert-warning {
+            background-color: #664d03 !important;
+            border-color: #ffc107 !important;
+            color: #ffffff !important;
+        }
     </style>
 </head>
 <body class="bg-light">
@@ -360,13 +430,11 @@
                 // Переключаем на темную тему
                 body.classList.remove('bg-light');
                 body.classList.add('bg-dark');
-                body.style.color = 'white';
                 
                 // Обновляем карточки
                 document.querySelectorAll('.card').forEach(card => {
                     card.classList.remove('bg-white');
                     card.classList.add('bg-dark');
-                    card.style.borderColor = '#495057';
                 });
                 
                 // Обновляем иконку
@@ -378,13 +446,11 @@
                 // Переключаем на светлую тему
                 body.classList.remove('bg-dark');
                 body.classList.add('bg-light');
-                body.style.color = '';
                 
                 // Обновляем карточки
                 document.querySelectorAll('.card').forEach(card => {
                     card.classList.remove('bg-dark');
                     card.classList.add('bg-white');
-                    card.style.borderColor = '';
                 });
                 
                 // Обновляем иконку
