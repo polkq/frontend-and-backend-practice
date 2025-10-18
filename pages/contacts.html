@@ -68,8 +68,8 @@
             font-size: var(--font-size-base);
             transition: border-color var(--transition-normal);
             box-sizing: border-box;
-            background: var(--color-bg-primary);
-            color: var(--color-text-primary);
+            background: #ffffff;
+            color: #000000;
         }
         
         .form__input:focus,
@@ -142,6 +142,35 @@
             }
         }
         
+        /* Стили для темной темы */
+        [data-theme="dark"] .form__input,
+        [data-theme="dark"] .form__select,
+        [data-theme="dark"] .form__textarea {
+            background: #ffffff;
+            color: #000000;
+            border-color: #d1d5db;
+        }
+
+        [data-theme="dark"] .form__input:focus,
+        [data-theme="dark"] .form__select:focus,
+        [data-theme="dark"] .form__textarea:focus {
+            border-color: var(--color-primary);
+            background: #ffffff;
+            color: #000000;
+        }
+
+        [data-theme="dark"] .form__label {
+            color: #000000;
+        }
+
+        [data-theme="dark"] .modal__header h2 {
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .modal__content {
+            background: #ffffff;
+        }
+
         /* Адаптивность */
         @media (max-width: 600px) {
             dialog {
