@@ -5,6 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Связь с Миром Сверхъестественного</title>
     <link rel="stylesheet" href="../style/styles.css">
+    <style>
+        /* Стили для модального окна */
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        dialog {
+            border: none;
+            border-radius: 12px;
+            padding: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+            max-width: 500px;
+            width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px 12px 0 0;
+            margin: 0;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .modal-content {
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #2c3e50;
+            border: 2px solid #e9ecef;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 600px) {
+            dialog {
+                margin: 1rem;
+                width: calc(100vw - 2rem);
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="page-container">
@@ -42,7 +187,7 @@
                             <span class="contact-label">Email:</span>
                             <span class="contact-value">emergency@supernatural.ru</span>
                         </div>
-                        <button class="contact-button emergency-btn">Срочный Вызов</button>
+                        <button class="contact-button emergency-btn" onclick="contactModal.showModal()">Срочный Вызов</button>
                     </article>
                     
                     <article class="contact-card consultation">
@@ -57,7 +202,7 @@
                             <span class="contact-label">Email:</span>
                             <span class="contact-value">consultation@supernatural.ru</span>
                         </div>
-                        <button class="contact-button consultation-btn">Записаться на Консультацию</button>
+                        <button class="contact-button consultation-btn" onclick="contactModal.showModal()">Записаться на Консультацию</button>
                     </article>
                     
                     <article class="contact-card office">
@@ -72,7 +217,7 @@
                             <span class="contact-label">Часы работы:</span>
                             <span class="contact-value">24/7 (круглосуточно)</span>
                         </div>
-                        <button class="contact-button office-btn">Найти на Карте</button>
+                        <button class="contact-button office-btn" onclick="contactModal.showModal()">Найти на Карте</button>
                     </article>
                 </div>
                 
@@ -81,41 +226,133 @@
                     <p>При обращении в экстренную службу будьте готовы описать ситуацию максимально подробно. Наши операторы обучены работе с различными типами сверхъестественных явлений. Помните: ложные вызовы могут привлечь нежелательное внимание темных сил.</p>
                 </aside>
                 
-                <section class="contact-form">
-                    <h3>Отправить Сообщение</h3>
-                    <form class="supernatural-form">
-                        <div class="form-group">
-                            <label for="name">Ваше имя:</label>
-                            <input type="text" id="name" name="name" placeholder="Введите ваше имя">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" placeholder="your@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Тема обращения:</label>
-                            <select id="subject" name="subject">
-                                <option value="">Выберите тип проблемы</option>
-                                <option value="ghost">Призраки и духи</option>
-                                <option value="demon">Демоны и темные сущности</option>
-                                <option value="curse">Проклятия и порчи</option>
-                                <option value="ritual">Магические ритуалы</option>
-                                <option value="other">Другое</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Описание проблемы:</label>
-                            <textarea id="message" name="message" placeholder="Опишите подробно вашу ситуацию..."></textarea>
-                        </div>
-                        <button type="submit" class="submit-button">Отправить Сообщение</button>
-                    </form>
-                </section>
+                <!-- Кнопка для открытия модального окна -->
+                <div style="text-align: center; margin: 40px 0;">
+                    <button class="contact-button" onclick="contactModal.showModal()" style="font-size: 18px; padding: 15px 40px;">
+                        📝 Отправить Сообщение через Модальное Окно
+                    </button>
+                </div>
             </section>
         </main>
         
         <footer class="footer">
             <p>© 2024 Центр Связи с Потусторонним Миром. Все права защищены древними заклинаниями.</p>
         </footer>
+        
+        <!-- Модальное окно для формы обратной связи -->
+        <dialog id="contactModal">
+            <div class="modal-header">
+                <h2>🔮 Форма обратной связи</h2>
+            </div>
+            
+            <div class="modal-content">
+                <form id="feedbackForm" method="dialog">
+                    <div class="form-group">
+                        <label for="name">Имя <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required placeholder="Введите ваше имя">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Телефон <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" required placeholder="+7 (XXX) XXX-XX-XX">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Электронная почта <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="example@mail.ru">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Категория обращения <span class="required">*</span></label>
+                        <select id="category" name="category" required>
+                            <option value="">Выберите категорию</option>
+                            <option value="emergency">🚨 Экстренная ситуация</option>
+                            <option value="consultation">🔮 Магическая консультация</option>
+                            <option value="ghost">👻 Призраки и духи</option>
+                            <option value="demon">😈 Демоны и темные сущности</option>
+                            <option value="curse">🔮 Проклятия и порчи</option>
+                            <option value="ritual">✨ Магические ритуалы</option>
+                            <option value="other">❓ Другое</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Текст обращения <span class="required">*</span></label>
+                        <textarea id="message" name="message" required placeholder="Опишите подробно вашу ситуацию или вопрос..."></textarea>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <!-- Кнопка отмены с автоматическим закрытием через form method="dialog" -->
+                        <button type="submit" class="btn btn-secondary">Отмена</button>
+                        <!-- Кнопка отправки с обработкой через JavaScript -->
+                        <button type="button" class="btn btn-primary" onclick="submitForm()">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        </dialog>
+        
+        <script>
+            // Функция для отправки формы
+            function submitForm() {
+                const form = document.getElementById('feedbackForm');
+                const formData = new FormData(form);
+                
+                // Простая валидация
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+                
+                // Собираем данные формы
+                const data = {
+                    name: formData.get('name'),
+                    phone: formData.get('phone'),
+                    email: formData.get('email'),
+                    category: formData.get('category'),
+                    message: formData.get('message')
+                };
+                
+                // В реальном приложении здесь был бы AJAX-запрос
+                console.log('Данные формы:', data);
+                
+                // Показываем уведомление об успешной отправке
+                alert('🔮 Спасибо! Ваше обращение отправлено в магический архив. Мы свяжемся с вами в ближайшее время через астральный канал связи.');
+                
+                // Закрываем модальное окно
+                contactModal.close();
+                
+                // Очищаем форму
+                form.reset();
+            }
+            
+            // Закрытие модального окна по клику на фон
+            document.getElementById('contactModal').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    this.close();
+                }
+            });
+            
+            // Обработка отправки формы через Enter (предотвращаем стандартное поведение)
+            document.getElementById('feedbackForm').addEventListener('keypress', function(event) {
+                if (event.key === 'Enter' && event.target.type !== 'textarea') {
+                    event.preventDefault();
+                }
+            });
+            
+            // Дополнительная валидация для телефона
+            document.getElementById('phone').addEventListener('input', function(event) {
+                let value = event.target.value.replace(/\D/g, '');
+                if (value.length > 0) {
+                    if (value[0] === '7') {
+                        value = value.substring(1);
+                    }
+                    if (value.length > 0) {
+                        value = '+7 (' + value.substring(0, 3) + ') ' + value.substring(3, 6) + '-' + value.substring(6, 8) + '-' + value.substring(8, 10);
+                    }
+                }
+                event.target.value = value;
+            });
+        </script>
     </div>
 </body>
 </html>
