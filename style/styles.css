@@ -101,30 +101,30 @@
 
 /* Темная тема */
 [data-theme="dark"] {
-  --color-primary: #8b5cf6;
-  --color-primary-hover: #7c3aed;
-  --color-secondary: #1f2937;
-  --color-secondary-hover: #374151;
+  --color-primary: #a78bfa;
+  --color-primary-hover: #8b5cf6;
+  --color-secondary: #1e1b4b;
+  --color-secondary-hover: #312e81;
   --color-accent: #06b6d4;
   --color-accent-hover: #0891b2;
   
-  --color-white: #111827;
-  --color-light: #1f2937;
-  --color-light-gray: #374151;
-  --color-gray: #9ca3af;
-  --color-dark-gray: #d1d5db;
-  --color-dark: #f9fafb;
+  --color-white: #0f0f23;
+  --color-light: #1e1b4b;
+  --color-light-gray: #312e81;
+  --color-gray: #a1a1aa;
+  --color-dark-gray: #e4e4e7;
+  --color-dark: #ffffff;
   --color-black: #ffffff;
   
-  --color-text-primary: #f9fafb;
-  --color-text-secondary: #d1d5db;
-  --color-text-muted: #9ca3af;
-  --color-text-inverse: #111827;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e4e4e7;
+  --color-text-muted: #a1a1aa;
+  --color-text-inverse: #0f0f23;
   
-  --color-bg-primary: #111827;
-  --color-bg-secondary: #1f2937;
-  --color-bg-dark: #0f172a;
-  --color-bg-gradient: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  --color-bg-primary: #0f0f23;
+  --color-bg-secondary: #1e1b4b;
+  --color-bg-dark: #0a0a1a;
+  --color-bg-gradient: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
 }
 
 /* ===== БАЗОВЫЕ СТИЛИ ===== */
@@ -169,6 +169,7 @@ body {
   grid-area: header;
   position: relative;
   transition: background var(--transition-normal);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .header__title {
@@ -232,6 +233,7 @@ body {
   font-weight: var(--font-weight-medium);
   position: relative;
   overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .nav__link::before {
@@ -287,6 +289,7 @@ body {
   color: var(--color-text-primary);
   margin-bottom: var(--space-md);
   font-weight: var(--font-weight-light);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .profile__photo {
@@ -340,6 +343,7 @@ body {
   color: var(--color-text-primary);
   margin-bottom: var(--space-lg);
   font-weight: var(--font-weight-light);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* ===== БЛОК SKILLS ===== */
@@ -780,3 +784,72 @@ body {
 .p-3 { padding: var(--space-md); }
 .p-4 { padding: var(--space-lg); }
 .p-5 { padding: var(--space-xl); }
+
+/* ===== ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ ТЕМНОЙ ТЕМЫ ===== */
+[data-theme="dark"] .header__title {
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .nav__link {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .nav__link:hover {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .about__title,
+[data-theme="dark"] .skills__title,
+[data-theme="dark"] .experience__title,
+[data-theme="dark"] .news__title,
+[data-theme="dark"] .contacts__title {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .about__text,
+[data-theme="dark"] .news-item__text,
+[data-theme="dark"] .contact-item__desc {
+  color: #e4e4e7;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .profile__name {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .profile__group {
+  color: #a1a1aa;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .news-item__title,
+[data-theme="dark"] .contact-item__title,
+[data-theme="dark"] .practice-card__title,
+[data-theme="dark"] .product-card__title {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .news-item__date,
+[data-theme="dark"] .news-item__author,
+[data-theme="dark"] .news-item__category {
+  color: #a1a1aa;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .contact-item__label,
+[data-theme="dark"] .contact-item__value {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .product-card__description,
+[data-theme="dark"] .practice-card__description {
+  color: #e4e4e7;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
