@@ -109,20 +109,6 @@
             transform: scale(1.05);
         }
 
-        .product-card__glow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            transform: translateX(-100%);
-            transition: transform var(--transition-slow);
-        }
-
-        .product-card:hover .product-card__glow {
-            transform: translateX(100%);
-        }
 
         .product-card__content {
             padding: var(--space-xl);
@@ -316,7 +302,6 @@
                 <article class="product-card product-card--legendary" data-rarity="legendary">
                     <div class="product-card__image">
                         <img src="../images/goods1.jpg" alt="Импала" width="250" height="250">
-                        <div class="product-card__glow"></div>
                     </div>
                     <div class="product-card__content">
                         <h3 class="product-card__title">Импала</h3>
@@ -340,7 +325,6 @@
                 <article class="product-card product-card--mythic product-card--discount" data-rarity="mythic">
                     <div class="product-card__image">
                         <img src="../images/goods2.jpg" alt="Бункер Хранителей" width="250" height="250">
-                        <div class="product-card__glow"></div>
                     </div>
                     <div class="product-card__content">
                         <h3 class="product-card__title">Бункер Хранителей</h3>
@@ -364,7 +348,6 @@
                 <article class="product-card product-card--epic product-card--unavailable" data-rarity="epic">
                     <div class="product-card__image">
                         <img src="../images/goods3.jpg" alt="Дневник Джона Винчестера" width="250" height="250">
-                        <div class="product-card__glow"></div>
                     </div>
                     <div class="product-card__content">
                         <h3 class="product-card__title">Дневник Джона Винчестера</h3>
